@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+  nameshape: roboshop
+  labels:
+    purpose: ingress-demo
+    project: roboshop
+    app: app1
+spec:
+  replicas: 2
+  selector:
+    matchLabels: 
+      purpose: ingress-demo
+      project: roboshop
+      app: app1
+  template:
+    metadata:
+      labels:
+        purpose: ingress-demo
+        project: roboshop
+        app: app1
+    containers:
+    - name: app1
+      image: 9959087127/app1:v1
+
+
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1-service
+  namespace: roboshop
+spec:
+  selectors:
+    purpose: ingress-demo
+    project: roboshop
+    app: app1
+  ports:
+  - protocol: TCP
+    port: 80  # service port
+    targetPort: 80 #container port
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app1
+  annotations: 
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:247898554458:certificate/0bb04ff4-f447-4f3d-bd27-09458f1bd42a
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/tags: Environment=dev,Project=roboshop
+spec:
+  ingressClassName: alb 
+  rules:
+  - host: "app1.inkweave.dpdns.org"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: app1
+            port:
+              number: 80
+
