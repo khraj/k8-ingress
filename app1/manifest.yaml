@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app1
-  nameshape: roboshop
+  namespace: roboshop
   labels:
     purpose: ingress-demo
     project: roboshop
@@ -33,7 +33,7 @@ metadata:
   name: app1-service
   namespace: roboshop
 spec:
-  selectors:
+  selector:
     purpose: ingress-demo
     project: roboshop
     app: app1
