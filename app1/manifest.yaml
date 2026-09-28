@@ -49,6 +49,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: app1
+  namespace: roboshop
   annotations: 
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:247898554458:certificate/0bb04ff4-f447-4f3d-bd27-09458f1bd42a
