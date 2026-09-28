@@ -57,7 +57,7 @@ metadata:
 spec:
   ingressClassName: alb 
   rules:
-  - host: "app1.inkweave.dpdns.org"
+  - host: "app2.inkweave.dpdns.org"
     http:
       paths:
       - pathType: Prefix
