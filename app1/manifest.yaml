@@ -20,6 +20,7 @@ spec:
         purpose: ingress-demo
         project: roboshop
         app: app1
+    spec:
       containers:
       - name: app1
         image: 9959087127/app1:v1
