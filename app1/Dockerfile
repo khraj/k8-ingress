@@ -1,0 +1,3 @@
+FROM Nginx
+RUN rm -rf /usr/share/nginx/html/index.html
+RUN echo "<h1>hello I'm from app1</h1>"
